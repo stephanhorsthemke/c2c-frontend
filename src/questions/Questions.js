@@ -48,7 +48,7 @@ export function KnowledgeQuestion(props) {
       </Typography>
       <Slider 
         className={props.classes.slider}
-        defaultValue={props.knowledge}
+        defaultValue={0}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
         step={1}

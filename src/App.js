@@ -81,13 +81,18 @@ function SubmitButton(props) {
   const handleSubmit = e => {
     //e.preventDefault();
 
-    const data = { props }
+    const data = { 
+      "knowledge": props.knowledge,
+      "position": props.position
+    }
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify(data)
     }
-    fetch("https://jsonplaceholder.typicode.com/posts", requestOptions)
+    
+    fetch("http://localhost:8080", requestOptions)
       .then(response => response.json())
       .then(res => console.log(res))
   }

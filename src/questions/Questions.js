@@ -42,21 +42,23 @@ export function KnowledgeQuestion(props) {
   }
   
   return(
-    <Grid item>
+    <Grid item xs={12}>
       <Typography variant="h5" align="center">
       1. How well do you know the concept of Cradle to Cradle?
       </Typography>
-      <Slider 
-        className={props.classes.slider}
-        defaultValue={0}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={0}
-        max={10}
-        onChangeCommitted={handleChange}
-      />
+      <div width="100%">
+        <Slider 
+          className={props.classes.slider}
+          defaultValue={0}
+          aria-labelledby="discrete-slider"
+          valueLabelDisplay="auto"
+          step={1}
+          marks
+          min={0}
+          max={10}
+          onChangeCommitted={handleChange}
+        />
+      </div>
     </Grid>
   )
 }

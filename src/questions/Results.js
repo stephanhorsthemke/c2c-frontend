@@ -1,28 +1,29 @@
 import * as React from "react";
 
 import { DataGrid } from '@material-ui/data-grid';
+import {Typography, Grid } from '@material-ui/core';
+
 
 const columns = [
   { field: 'link', headerName: 'Link', flex: 1},
-  { field: 'description', headerName: 'Description', flex: 3},
+  { field: 'description', headerName: 'Beschreibung', flex: 3},
 ];
 
-const rows = [
-  { id: 1, link: 'Snow', description: 'Jon' },
-  { id: 2, link: 'Lannister', description: 'Cersei' },
-  { id: 3, link: 'Lannister', description: 'Jaime' },
-  { id: 4, link: 'Stark', description: 'Arya' },
-  { id: 5, link: 'Targaryen', description: 'Daenerys' },
-  { id: 6, link: 'Melisandre', description: null },
-  { id: 7, link: 'Clifford', description: 'Ferrara' },
-  { id: 8, link: 'Frances', description: 'Rossini' },
-  { id: 9, link: 'Roxie', description: 'Harvey' },
-];
-
-export default function Results() {
+export default function Results(props) {
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} pageSize={5} />
-    </div>
+    <React.Fragment>
+      <Grid item xs={12}>
+        <Typography variant="h4" align="center">
+          Results
+        </Typography>
+        <Typography variant="h6" align="center">
+          Leider noch nicht ganz ein Kompass.
+        </Typography>
+        <div style={{ height: 400, width: '100%' }}>
+          <DataGrid rows={props.result} columns={columns} pageSize={10} />
+        </div>
+      </Grid>
+
+    </React.Fragment>
   );
 }

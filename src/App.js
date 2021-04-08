@@ -8,6 +8,8 @@ import { makeStyles, Paper, Typography, Button, Grid } from '@material-ui/core';
 // https://material-ui.com/components/typography/#typography
 import 'fontsource-roboto';
 
+const BACKEND = "https://c2c-backend-vupu65ymaq-ey.a.run.app"
+//const BACKEND = "localhost:8080"
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -41,19 +43,23 @@ function Questionnaire(){
   const [position, savePositionChoice] = useState("")
   const [knowledge, saveKnowledgeChoice] = useState(0)
 
+  const [result, saveResult] = useState([{
+    "id": 1,
+    "link": "",
+    "description": ""
+  }])
+
   const classes = useStyles();
   
   return(
     <main className={classes.layout}>
       <Paper className={classes.paper}>
-        <Grid container spacing={5} direction="column" justify="center" alignItems="center">
+        <Grid container spacing={7} direction="column" justify="space-evenly">
           <Headline/>
           <KnowledgeQuestion classes={classes} knowledge={knowledge} saveKnowledgeChoice={saveKnowledgeChoice}/>
           <MCQuestion position={position} savePositionChoice={savePositionChoice}/>
-          <p> Current position is {position} </p>
-          <p> Current knowledge is {knowledge} </p>
-          <SubmitButton position={position} knowledge={knowledge}/>
-          <Results/>
+          <SubmitButton position={position} knowledge={knowledge} saveResult={saveResult}/>
+          <Results result={result}/>
         </Grid>
       </Paper>
     </main>
@@ -76,11 +82,11 @@ function Headline() {
 
 
 
+
+
 function SubmitButton(props) {
 
   const handleSubmit = e => {
-    //e.preventDefault();
-
     const data = { 
       "knowledge": props.knowledge,
       "position": props.position
@@ -91,10 +97,21 @@ function SubmitButton(props) {
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify(data)
     }
-    
-    fetch("http://localhost:8080", requestOptions)
+
+    fetch(BACKEND, requestOptions)
       .then(response => response.json())
-      .then(res => console.log(res))
+      .then(res => {
+        if (res != null){
+          props.saveResult(res)
+        }else{
+          props.saveResult([{
+            "id": 1,
+            "link": "Keine Links gefunden",
+            "description": "Team! Wir müssen mehr Links sammeln!"
+          }])
+        }
+      })
+
   }
 
   return (

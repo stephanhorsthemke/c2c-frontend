@@ -9,10 +9,10 @@ import { makeStyles, Paper, Typography, Button, Grid } from '@material-ui/core';
 import 'fontsource-roboto';
 
 const BACKEND = "https://c2c-backend-vupu65ymaq-ey.a.run.app"
-//const BACKEND = "localhost:8080"
+//const BACKEND = "http://localhost:8080"
 
 const useStyles = makeStyles((theme) => ({
-  layout: {
+layout: {
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -59,6 +59,7 @@ function Questionnaire(){
           <KnowledgeQuestion classes={classes} knowledge={knowledge} saveKnowledgeChoice={saveKnowledgeChoice}/>
           <MCQuestion position={position} savePositionChoice={savePositionChoice}/>
           <SubmitButton position={position} knowledge={knowledge} saveResult={saveResult}/>
+          <RefreshButton/>
           <Results result={result}/>
         </Grid>
       </Paper>
@@ -79,10 +80,6 @@ function Headline() {
     </Grid>
   )
 }
-
-
-
-
 
 function SubmitButton(props) {
 
@@ -126,6 +123,31 @@ function SubmitButton(props) {
     </Grid>
   )
 }
+
+function RefreshButton(props) {
+
+  const handleSubmit = e => {
+
+    const requestOptions = {
+      method: "GET",
+    }
+
+    fetch(BACKEND, requestOptions)
+  }
+
+  return (
+    <Grid item>
+      <Button 
+          variant="contained"
+          color="secondary"
+          onClick={handleSubmit}
+        >
+        Refresh Data
+      </Button>
+    </Grid>
+  )
+}
+
 
 
 function App(){
